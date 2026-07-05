@@ -19,7 +19,7 @@ function validarEmail(id, errorId) {
 
 // REGISTRO
 document.getElementById('nombre').addEventListener('blur', () => validar('nombre','errorNombre',3,'Mínimo 3 caracteres.'));
-document.getElementById('descripcion').addEventListener('blur', () => validar('descripcion','errorDescripcion',10,'Mínimo 10 caracteres.'));
+document.getElementById('descripcion').addEventListener('blur', () => validar('descripcion','errorDescripcion',4,'Mínimo 4 caracteres.'));
 document.getElementById('categoria').addEventListener('change', () => validar('categoria','errorCategoria',1,'Selecciona una categoría.'));
 
 document.getElementById('formRegistro').addEventListener('submit', function(e) {
