@@ -6,12 +6,7 @@
     <title>IA en la Universidad</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-      body { background-color: #e8f4f8; }
-      header { background-color: #0f3460; color: white; padding: 30px; text-align: center; }
-      footer { background-color: #d0d0d0; text-align: center; padding: 20px; margin-top: 30px; }
-      @media (max-width: 576px) { header h1 { font-size: 1.4em; } }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
 
@@ -88,13 +83,26 @@
         <a href="https://www.facebook.com/groups/uea.ec/" target="_blank" class="btn btn-outline-primary btn-sm m-1">Facebook</a>
         <a href="https://www.instagram.com/uea.edu.ec/" target="_blank" class="btn btn-outline-danger btn-sm m-1">Instagram</a>
         <a href="https://www.linkedin.com/company/universidad-estatal-amaz%C3%B3nica-educaci%C3%B3n/" target="_blank" class="btn btn-outline-secondary btn-sm m-1">LinkedIn</a>
-        <form class="mt-3">
-          <input type="text" class="form-control mb-2" placeholder="Tu nombre">
-          <input type="email" class="form-control mb-2" placeholder="Tu correo electrónico">
-          <input type="text" class="form-control mb-2" placeholder="Asunto">
-          <textarea class="form-control mb-2" rows="3" placeholder="Tu mensaje"></textarea>
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
+        <form id="formContacto" class="mt-3">
+  <div class="mb-2">
+    <input type="text" id="cNombre" class="form-control" placeholder="Tu nombre">
+    <div id="eCNombre" class="text-danger small"></div>
+  </div>
+  <div class="mb-2">
+    <input type="email" id="cCorreo" class="form-control" placeholder="Tu correo electrónico">
+    <div id="eCCorreo" class="text-danger small"></div>
+  </div>
+  <div class="mb-2">
+    <input type="text" id="cAsunto" class="form-control" placeholder="Asunto">
+    <div id="eCAsunto" class="text-danger small"></div>
+  </div>
+  <div class="mb-2">
+    <textarea id="cMensaje" class="form-control" rows="3" placeholder="Tu mensaje"></textarea>
+    <div id="eCMensaje" class="text-danger small"></div>
+  </div>
+  <div id="msgContacto" class="mb-2"></div>
+  <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
       </section>
 
       <!-- ASIDE -->
@@ -120,11 +128,27 @@
         <div id="mensaje" class="mb-2"></div>
         <p>Total de registros: <strong id="total">0</strong></p>
         <form id="formRegistro">
-          <input type="text" id="nombre" class="form-control mb-2" placeholder="Nombre de la herramienta">
-          <input type="text" id="descripcion" class="form-control mb-2" placeholder="Descripción">
-          <input type="text" id="categoria" class="form-control mb-2" placeholder="Categoría">
-          <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
+  <div class="mb-2">
+    <input type="text" id="nombre" class="form-control" placeholder="Nombre de la herramienta">
+    <div id="errorNombre" class="text-danger small"></div>
+  </div>
+  <div class="mb-2">
+    <input type="text" id="descripcion" class="form-control" placeholder="Descripción">
+    <div id="errorDescripcion" class="text-danger small"></div>
+  </div>
+  <div class="mb-2">
+    <select id="categoria" class="form-control">
+      <option value="">-- Selecciona categoría --</option>
+      <option value="Asistente Virtual">Asistente Virtual</option>
+      <option value="Investigación">Investigación</option>
+      <option value="Productividad">Productividad</option>
+      <option value="Diseño">Diseño</option>
+      <option value="Educación">Educación</option>
+    </select>
+    <div id="errorCategoria" class="text-danger small"></div>
+  </div>
+  <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
         <div id="listaRegistros" class="mt-3"></div>
       </section>
 
