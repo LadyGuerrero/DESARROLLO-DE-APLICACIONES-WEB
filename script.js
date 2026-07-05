@@ -25,7 +25,7 @@ document.getElementById('categoria').addEventListener('change', () => validar('c
 document.getElementById('formRegistro').addEventListener('submit', function(e) {
   e.preventDefault();
   if (!validar('nombre','errorNombre',3,'Mínimo 3 caracteres.') |
-      !validar('descripcion','errorDescripcion',10,'Mínimo 10 caracteres.') |
+      !validar('descripcion','errorDescripcion',4,'Mínimo 4 caracteres.') |
       !validar('categoria','errorCategoria',1,'Selecciona una categoría.')) return;
 
   const nombre = document.getElementById('nombre').value.trim();
