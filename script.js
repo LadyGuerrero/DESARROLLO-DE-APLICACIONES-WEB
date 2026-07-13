@@ -17,9 +17,41 @@ function validarEmail(id, errorId) {
   return ok;
 }
 
+// DATOS INICIALES - preparado para Flask
+const herramientas = [
+  { nombre: 'ChatGPT', descripcion: 'Asistente de escritura e investigación', categoria: 'Asistente Virtual' },
+  { nombre: 'Consensus', descripcion: 'Búsqueda de papers científicos', categoria: 'Investigación' },
+  { nombre: 'Canva IA', descripcion: 'Diseño con inteligencia artificial', categoria: 'Diseño' }
+];
+
+function renderizarHerramientas() {
+  const lista = document.getElementById('listaRegistros');
+  const total = document.getElementById('total');
+  lista.innerHTML = '';
+  if (herramientas.length === 0) {
+    lista.innerHTML = '<div class="alert alert-warning">No hay herramientas registradas.</div>';
+    total.textContent = 0;
+    return;
+  }
+  herramientas.forEach((h, i) => {
+    const card = document.createElement('div');
+    card.className = 'card mb-2';
+    card.innerHTML = `<div class="card-body">
+      <strong>${h.nombre}</strong> — ${h.descripcion}
+      <span class="badge bg-primary ms-1">${h.categoria}</span>
+      <button class="btn btn-danger btn-sm float-end" data-index="${i}">Eliminar</button>
+    </div>`;
+    card.querySelector('button').addEventListener('click', () => {
+      herramientas.splice(i, 1);
+      renderizarHerramientas();
+    });
+    lista.appendChild(card);
+  });
+  total.textContent = herramientas.length;
+}
+
 // REGISTRO
 document.getElementById('nombre').addEventListener('blur', () => validar('nombre','errorNombre',3,'Mínimo 3 caracteres.'));
-document.getElementById('descripcion').addEventListener('blur', () => validar('descripcion','errorDescripcion',4,'Mínimo 4 caracteres.'));
 document.getElementById('categoria').addEventListener('change', () => validar('categoria','errorCategoria',1,'Selecciona una categoría.'));
 
 document.getElementById('formRegistro').addEventListener('submit', function(e) {
@@ -27,23 +59,12 @@ document.getElementById('formRegistro').addEventListener('submit', function(e) {
   if (!validar('nombre','errorNombre',3,'Mínimo 3 caracteres.') |
       !validar('descripcion','errorDescripcion',4,'Mínimo 4 caracteres.') |
       !validar('categoria','errorCategoria',1,'Selecciona una categoría.')) return;
-
-  const nombre = document.getElementById('nombre').value.trim();
-  const descripcion = document.getElementById('descripcion').value.trim();
-  const categoria = document.getElementById('categoria').value;
-  const card = document.createElement('div');
-  card.className = 'card mb-2';
-  card.innerHTML = `<div class="card-body">
-    <strong>${nombre}</strong> — ${descripcion}
-    <span class="badge bg-primary ms-1">${categoria}</span>
-    <button class="btn btn-danger btn-sm float-end">Eliminar</button>
-  </div>`;
-  card.querySelector('button').addEventListener('click', () => {
-    card.remove();
-    document.getElementById('total').textContent--;
+  herramientas.push({
+    nombre: document.getElementById('nombre').value.trim(),
+    descripcion: document.getElementById('descripcion').value.trim(),
+    categoria: document.getElementById('categoria').value
   });
-  document.getElementById('listaRegistros').appendChild(card);
-  document.getElementById('total').textContent++;
+  renderizarHerramientas();
   document.getElementById('mensaje').innerHTML = '<div class="alert alert-success">✅ Herramienta registrada.</div>';
   this.reset();
 });
@@ -63,3 +84,5 @@ document.getElementById('formContacto').addEventListener('submit', function(e) {
   document.getElementById('msgContacto').innerHTML = '<div class="alert alert-success">✅ Mensaje enviado correctamente.</div>';
   this.reset();
 });
+
+renderizarHerramientas();
