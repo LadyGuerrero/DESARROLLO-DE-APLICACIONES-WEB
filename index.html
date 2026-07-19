@@ -42,7 +42,25 @@
         <h2>Inicio</h2>
         <p>Bienvenido a este espacio dedicado a explorar cómo la Inteligencia Artificial está transformando la educación universitaria.</p>
         <a href="#mision" class="btn btn-primary">Conoce nuestra misión</a>
+        <button type="button" class="btn btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#modalInfo">Más información</button>
       </section>
+
+      <div class="modal fade" id="modalInfo" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Sobre este proyecto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <p>Este proyecto explora el impacto de la IA en la educación universitaria, desarrollado en la asignatura Desarrollo de Aplicaciones Web — UEA 2026.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- NUESTRA MISIÓN -->
       <section id="mision" class="p-3 mb-4 bg-white rounded">
@@ -127,6 +145,11 @@
         <h2>Registrar Herramienta de IA</h2>
         <div id="mensaje" class="mb-2"></div>
         <p>Total de registros: <strong id="total">0</strong></p>
+        <div id="spinner" class="text-center d-none my-2">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
         <form id="formRegistro">
   <div class="mb-2">
     <input type="text" id="nombre" class="form-control" placeholder="Nombre de la herramienta">

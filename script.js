@@ -64,8 +64,13 @@ document.getElementById('formRegistro').addEventListener('submit', function(e) {
     descripcion: document.getElementById('descripcion').value.trim(),
     categoria: document.getElementById('categoria').value
   });
-  renderizarHerramientas();
-  document.getElementById('mensaje').innerHTML = '<div class="alert alert-success">✅ Herramienta registrada.</div>';
+  const spinner = document.getElementById('spinner');
+  spinner.classList.remove('d-none');
+  setTimeout(() => {
+    spinner.classList.add('d-none');
+    renderizarHerramientas();
+    document.getElementById('mensaje').innerHTML = '<div class="alert alert-success">✅ Herramienta registrada.</div>';
+  }, 1000);
   this.reset();
 });
 
