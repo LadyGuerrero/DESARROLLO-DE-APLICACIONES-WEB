@@ -5,24 +5,39 @@
 {% block content %}
 <section class="p-3 mb-4 bg-white rounded">
   <h2>Herramientas de IA</h2>
-  <p>Principales herramientas utilizadas por estudiantes universitarios.</p>
-  <div class="row">
-    {% for h in herramientas %}
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">{{ h.nombre|upper }}</h5>
-          <p class="card-text">{{ h.descripcion }}</p>
-          <span class="badge bg-secondary">{{ h.categoria }}</span><br><br>
-          {% if h.disponible %}
+  <a href="{{ url_for('nueva_herramienta') }}" class="btn btn-success mb-3">+ Nueva Herramienta</a>
+
+  {% if herramientas %}
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Categoría</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for h in herramientas %}
+      <tr>
+        <td>{{ h[0] }}</td>
+        <td>{{ h[1]|upper }}</td>
+        <td>{{ h[2] }}</td>
+        <td><span class="badge bg-secondary">{{ h[3] }}</span></td>
+        <td>
+          {% if h[4] == 1 %}
             <span class="badge bg-success">Disponible</span>
           {% else %}
             <span class="badge bg-danger">No disponible</span>
           {% endif %}
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="alert alert-warning">No hay herramientas registradas.</div>
+  {% endif %}
 </section>
 {% endblock %}

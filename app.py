@@ -1,3 +1,5 @@
+import sqlite3
+import os
 from flask import Flask, render_template, redirect, url_for, flash
 from forms.herramienta_form import HerramientaForm
 from forms.contacto_form import ContactoForm
@@ -5,13 +7,22 @@ from forms.contacto_form import ContactoForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uea2026secretkey'
 
-herramientas = [
-    {"nombre": "ChatGPT", "descripcion": "Asistente de escritura e investigación", "categoria": "Asistente Virtual", "disponible": True},
-    {"nombre": "Consensus", "descripcion": "Búsqueda de papers científicos", "categoria": "Investigación", "disponible": True},
-    {"nombre": "Canva IA", "descripcion": "Diseño con inteligencia artificial", "categoria": "Diseño", "disponible": True},
-    {"nombre": "Grammarly", "descripcion": "Corrección de textos en inglés", "categoria": "Productividad", "disponible": False},
-    {"nombre": "Elicit", "descripcion": "Análisis de literatura científica", "categoria": "Investigación", "disponible": True}
-]
+DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'ferreteria.db')
+
+def init_db():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS herramientas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            categoria TEXT NOT NULL,
+            disponible INTEGER DEFAULT 1
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 @app.route('/')
 def index():
@@ -19,18 +30,25 @@ def index():
 
 @app.route('/herramientas')
 def herramientas_lista():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM herramientas')
+    herramientas = cursor.fetchall()
+    conn.close()
     return render_template('herramientas.html', herramientas=herramientas)
 
 @app.route('/herramientas/nueva', methods=['GET', 'POST'])
 def nueva_herramienta():
     form = HerramientaForm()
     if form.validate_on_submit():
-        herramientas.append({
-            "nombre": form.nombre.data,
-            "descripcion": form.descripcion.data,
-            "categoria": form.categoria.data,
-            "disponible": True
-        })
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute(
+            'INSERT INTO herramientas (nombre, descripcion, categoria, disponible) VALUES (?, ?, ?, ?)',
+            (form.nombre.data, form.descripcion.data, form.categoria.data, 1)
+        )
+        conn.commit()
+        conn.close()
         flash('Herramienta registrada correctamente.', 'success')
         return redirect(url_for('herramientas_lista'))
     return render_template('formulario_herramienta.html', form=form)
@@ -65,4 +83,5 @@ def contacto():
     return render_template('contacto.html', form=form)
 
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True)
