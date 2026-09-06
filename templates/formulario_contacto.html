@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto{% endblock %}
+
+{% block content %}
+<section class="p-3 mb-4 bg-white rounded">
+  <h2>Contacto</h2>
+  <p>📧 <a href="mailto:lm.guerreroq@uea.edu.ec">lm.guerreroq@uea.edu.ec</a></p>
+  <p>📞 +593 995 919 427</p>
+  <p>📍 Universidad Estatal Amazónica, Puyo - Ecuador</p>
+  <a href="https://www.facebook.com/groups/uea.ec/" target="_blank" class="btn btn-outline-primary btn-sm m-1">Facebook</a>
+  <a href="https://www.instagram.com/uea.edu.ec/" target="_blank" class="btn btn-outline-danger btn-sm m-1">Instagram</a>
+  <a href="https://www.linkedin.com/company/universidad-estatal-amaz%C3%B3nica-educaci%C3%B3n/" target="_blank" class="btn btn-outline-secondary btn-sm m-1">LinkedIn</a>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} mt-3">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <form method="POST" class="mt-3">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.nombre.label(class="form-label") }}
+      {{ form.nombre(class="form-control") }}
+      {% for error in form.nombre.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.correo.label(class="form-label") }}
+      {{ form.correo(class="form-control") }}
+      {% for error in form.correo.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.asunto.label(class="form-label") }}
+      {{ form.asunto(class="form-control") }}
+      {% for error in form.asunto.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.mensaje.label(class="form-label") }}
+      {{ form.mensaje(class="form-control", rows=4) }}
+      {% for error in form.mensaje.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+</section>
+{% endblock %}
