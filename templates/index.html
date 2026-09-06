@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="menuNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('herramientas') }}">Herramientas</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('herramientas_lista') }}">Herramientas</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('impacto') }}">Impacto</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('recursos') }}">Recursos</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
@@ -37,7 +37,7 @@
       <section id="inicio" class="p-3 mb-4 bg-white rounded">
         <h2>Inicio</h2>
         <p>Bienvenido a este espacio dedicado a explorar cómo la Inteligencia Artificial está transformando la educación universitaria.</p>
-        <a href="{{ url_for('herramientas') }}" class="btn btn-primary">Conoce nuestra misión</a>
+        <a href="{{ url_for('herramientas_lista') }}" class="btn btn-primary">Conoce nuestra misión</a>
         <button type="button" class="btn btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#modalInfo">Más información</button>
       </section>
 
