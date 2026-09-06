@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 
+{% block title %}Impacto de la IA{% endblock %}
+
 {% block content %}
 <section class="p-3 mb-4 bg-white rounded">
-  <h2>Impacto de la IA</h2>
-  <p>La inteligencia artificial está transformando la educación universitaria de diversas formas.</p>
-  <ul>
-    <li>🤖 Aprendizaje personalizado según el ritmo de cada estudiante.</li>
-    <li>📚 Asistentes virtuales que resuelven dudas académicas.</li>
-    <li>📊 Análisis de rendimiento en tiempo real.</li>
-    <li>🔍 Investigación avanzada más eficiente.</li>
-    <li>🎯 Retroalimentación inmediata.</li>
-    <li>⚠️ Desafíos éticos y de integridad académica.</li>
-  </ul>
+  <h2>{{ titulo }}</h2>
+  <div class="row">
+    {% for item in impactos %}
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.area|upper }}</h5>
+          <p class="card-text">{{ item.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </section>
 {% endblock %}

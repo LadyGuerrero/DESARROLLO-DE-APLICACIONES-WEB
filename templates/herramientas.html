@@ -1,34 +1,28 @@
 {% extends "base.html" %}
 
+{% block title %}Herramientas de IA{% endblock %}
+
 {% block content %}
 <section class="p-3 mb-4 bg-white rounded">
   <h2>Herramientas de IA</h2>
-  <p>Principales herramientas de inteligencia artificial utilizadas por estudiantes universitarios.</p>
+  <p>Principales herramientas utilizadas por estudiantes universitarios.</p>
   <div class="row">
+    {% for h in herramientas %}
     <div class="col-md-4 mb-3">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-body">
-          <h5 class="card-title">🤖 ChatGPT</h5>
-          <p class="card-text">Asistente virtual para redacción e investigación.</p>
+          <h5 class="card-title">{{ h.nombre|upper }}</h5>
+          <p class="card-text">{{ h.descripcion }}</p>
+          <span class="badge bg-secondary">{{ h.categoria }}</span><br><br>
+          {% if h.disponible %}
+            <span class="badge bg-success">Disponible</span>
+          {% else %}
+            <span class="badge bg-danger">No disponible</span>
+          {% endif %}
         </div>
       </div>
     </div>
-    <div class="col-md-4 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">📖 Consensus</h5>
-          <p class="card-text">Búsqueda de papers científicos con IA.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">🎨 Canva IA</h5>
-          <p class="card-text">Diseño con inteligencia artificial.</p>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}

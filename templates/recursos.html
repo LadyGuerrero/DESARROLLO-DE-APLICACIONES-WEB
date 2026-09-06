@@ -1,26 +1,26 @@
 {% extends "base.html" %}
 
+{% block title %}Recursos{% endblock %}
+
 {% block content %}
 <section class="p-3 mb-4 bg-white rounded">
-  <h2>Recursos</h2>
-  <p>Recursos recomendados para estudiantes universitarios sobre IA.</p>
+  <h2>Recursos para Estudiantes</h2>
   <div class="row">
+    {% for r in recursos %}
     <div class="col-md-6 mb-3">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-body">
-          <h5 class="card-title">📘 Cursos en línea</h5>
-          <p class="card-text">Coursera, edX y Khan Academy ofrecen cursos gratuitos sobre IA.</p>
+          <h5 class="card-title">{{ r.nombre }}</h5>
+          <p class="card-text">{{ r.tipo }}</p>
+          {% if r.gratuito %}
+            <span class="badge bg-success">Gratuito</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">De pago</span>
+          {% endif %}
         </div>
       </div>
     </div>
-    <div class="col-md-6 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">📄 Artículos científicos</h5>
-          <p class="card-text">Usa Consensus o Google Scholar para encontrar papers sobre IA educativa.</p>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}

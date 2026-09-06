@@ -8,15 +8,35 @@ def index():
 
 @app.route('/herramientas')
 def herramientas():
-    return render_template('herramientas.html')
+    herramientas = [
+        {"nombre": "ChatGPT", "descripcion": "Asistente de escritura e investigación", "categoria": "Asistente Virtual", "disponible": True},
+        {"nombre": "Consensus", "descripcion": "Búsqueda de papers científicos", "categoria": "Investigación", "disponible": True},
+        {"nombre": "Canva IA", "descripcion": "Diseño con inteligencia artificial", "categoria": "Diseño", "disponible": True},
+        {"nombre": "Grammarly", "descripcion": "Corrección de textos en inglés", "categoria": "Productividad", "disponible": False},
+        {"nombre": "Elicit", "descripcion": "Análisis de literatura científica", "categoria": "Investigación", "disponible": True}
+    ]
+    return render_template('herramientas.html', herramientas=herramientas)
 
 @app.route('/impacto')
 def impacto():
-    return render_template('impacto.html')
+    titulo = "Impacto de la IA en la Educación"
+    impactos = [
+        {"area": "Aprendizaje", "descripcion": "Personalización del contenido según cada estudiante"},
+        {"area": "Investigación", "descripcion": "Aceleración en la búsqueda de información científica"},
+        {"area": "Productividad", "descripcion": "Mayor eficiencia en tareas académicas"},
+        {"area": "Ética", "descripcion": "Desafíos en integridad académica"}
+    ]
+    return render_template('impacto.html', titulo=titulo, impactos=impactos)
 
 @app.route('/recursos')
 def recursos():
-    return render_template('recursos.html')
+    recursos = [
+        {"nombre": "Coursera", "tipo": "Curso online", "gratuito": True},
+        {"nombre": "edX", "tipo": "Curso online", "gratuito": True},
+        {"nombre": "Google Scholar", "tipo": "Buscador académico", "gratuito": True},
+        {"nombre": "Udemy", "tipo": "Curso online", "gratuito": False}
+    ]
+    return render_template('recursos.html', recursos=recursos)
 
 @app.route('/contacto')
 def contacto():
