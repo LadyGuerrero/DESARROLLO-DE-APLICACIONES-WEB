@@ -6,17 +6,15 @@
     <title>IA en la Universidad</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/css/style.css">
   </head>
   <body>
 
-    <!-- BLOQUE BASE: header — en Flask sería parte de base.html -->
     <header>
       <h1>El Impacto de la Inteligencia Artificial en Estudiantes Universitarios</h1>
       <p>La inteligencia artificial (IA) tiene un impacto significativo en estudiantes universitarios, mejorando la personalización del aprendizaje, la eficiencia académica y la motivación, aunque plantea desafíos éticos y pedagógicos.</p>
     </header>
 
-    <!-- BLOQUE BASE: nav — en Flask sería parte de base.html -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
@@ -34,10 +32,8 @@
       </div>
     </nav>
 
-    <!-- BLOQUE CONTENIDO: main -->
     <main class="container my-4">
 
-      <!-- INICIO -->
       <section id="inicio" class="p-3 mb-4 bg-white rounded">
         <h2>Inicio</h2>
         <p>Bienvenido a este espacio dedicado a explorar cómo la Inteligencia Artificial está transformando la educación universitaria.</p>
@@ -62,21 +58,19 @@
         </div>
       </div>
 
-      <!-- NUESTRA MISIÓN -->
       <section id="mision" class="p-3 mb-4 bg-white rounded">
         <h2>Nuestra Misión</h2>
         <p>Nuestra misión es informar, concientizar y orientar a estudiantes universitarios sobre el papel que desempeña la Inteligencia Artificial en el ámbito académico. Vivimos en una era donde la tecnología avanza a pasos agigantados, y la IA se ha convertido en una herramienta fundamental para el aprendizaje personalizado, la investigación científica y el desarrollo de habilidades digitales. Creemos que cada estudiante merece acceder a recursos que le permitan comprender esta tecnología, utilizarla de manera ética y responsable, y aprovechar su potencial para mejorar su rendimiento académico.</p>
         <div class="row text-center mt-3">
           <div class="col-md-6">
-           <img src="./static/img/ImagenIA1.png" alt="IA en educación" class="img-fluid rounded">
+            <img src="static/img/ImagenIA1.png" alt="IA en educación" class="img-fluid rounded">
           </div>
           <div class="col-md-6">
-            <img src="./static/img/ImagenIA2.jpg" alt="Estudiantes con IA" class="img-fluid rounded">
+            <img src="static/img/ImagenIA2.jpg" alt="Estudiantes con IA" class="img-fluid rounded">
           </div>
         </div>
       </section>
 
-      <!-- LA IA EN EL AULA -->
       <section id="aula" class="p-3 mb-4 bg-white rounded">
         <h2>La IA en el Aula</h2>
         <ul>
@@ -92,7 +86,6 @@
         </div>
       </section>
 
-      <!-- CONTACTO -->
       <section id="contacto" class="p-3 mb-4 bg-white rounded">
         <h2>Contacto</h2>
         <p>📧 <a href="mailto:lm.guerreroq@uea.edu.ec">lm.guerreroq@uea.edu.ec</a></p>
@@ -102,28 +95,27 @@
         <a href="https://www.instagram.com/uea.edu.ec/" target="_blank" class="btn btn-outline-danger btn-sm m-1">Instagram</a>
         <a href="https://www.linkedin.com/company/universidad-estatal-amaz%C3%B3nica-educaci%C3%B3n/" target="_blank" class="btn btn-outline-secondary btn-sm m-1">LinkedIn</a>
         <form id="formContacto" class="mt-3">
-  <div class="mb-2">
-    <input type="text" id="cNombre" class="form-control" placeholder="Tu nombre">
-    <div id="eCNombre" class="text-danger small"></div>
-  </div>
-  <div class="mb-2">
-    <input type="email" id="cCorreo" class="form-control" placeholder="Tu correo electrónico">
-    <div id="eCCorreo" class="text-danger small"></div>
-  </div>
-  <div class="mb-2">
-    <input type="text" id="cAsunto" class="form-control" placeholder="Asunto">
-    <div id="eCAsunto" class="text-danger small"></div>
-  </div>
-  <div class="mb-2">
-    <textarea id="cMensaje" class="form-control" rows="3" placeholder="Tu mensaje"></textarea>
-    <div id="eCMensaje" class="text-danger small"></div>
-  </div>
-  <div id="msgContacto" class="mb-2"></div>
-  <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+          <div class="mb-2">
+            <input type="text" id="cNombre" class="form-control" placeholder="Tu nombre">
+            <div id="eCNombre" class="text-danger small"></div>
+          </div>
+          <div class="mb-2">
+            <input type="email" id="cCorreo" class="form-control" placeholder="Tu correo electrónico">
+            <div id="eCCorreo" class="text-danger small"></div>
+          </div>
+          <div class="mb-2">
+            <input type="text" id="cAsunto" class="form-control" placeholder="Asunto">
+            <div id="eCAsunto" class="text-danger small"></div>
+          </div>
+          <div class="mb-2">
+            <textarea id="cMensaje" class="form-control" rows="3" placeholder="Tu mensaje"></textarea>
+            <div id="eCMensaje" class="text-danger small"></div>
+          </div>
+          <div id="msgContacto" class="mb-2"></div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
       </section>
 
-      <!-- ASIDE -->
       <aside class="p-3 mb-4 bg-white rounded">
         <h3>¿Sabías que...?</h3>
         <ul>
@@ -140,7 +132,7 @@
           <li>Elicit</li>
         </ul>
       </aside>
-<!-- REGISTRO DINÁMICO -->
+
       <section id="registro" class="p-3 mb-4 bg-white rounded">
         <h2>Registrar Herramienta de IA</h2>
         <div id="mensaje" class="mb-2"></div>
@@ -151,38 +143,38 @@
           </div>
         </div>
         <form id="formRegistro">
-  <div class="mb-2">
-    <input type="text" id="nombre" class="form-control" placeholder="Nombre de la herramienta">
-    <div id="errorNombre" class="text-danger small"></div>
-  </div>
-  <div class="mb-2">
-    <input type="text" id="descripcion" class="form-control" placeholder="Descripción">
-    <div id="errorDescripcion" class="text-danger small"></div>
-  </div>
-  <div class="mb-2">
-    <select id="categoria" class="form-control">
-      <option value="">-- Selecciona categoría --</option>
-      <option value="Asistente Virtual">Asistente Virtual</option>
-      <option value="Investigación">Investigación</option>
-      <option value="Productividad">Productividad</option>
-      <option value="Diseño">Diseño</option>
-      <option value="Educación">Educación</option>
-    </select>
-    <div id="errorCategoria" class="text-danger small"></div>
-  </div>
-  <button type="submit" class="btn btn-primary">Registrar</button>
-</form>
+          <div class="mb-2">
+            <input type="text" id="nombre" class="form-control" placeholder="Nombre de la herramienta">
+            <div id="errorNombre" class="text-danger small"></div>
+          </div>
+          <div class="mb-2">
+            <input type="text" id="descripcion" class="form-control" placeholder="Descripción">
+            <div id="errorDescripcion" class="text-danger small"></div>
+          </div>
+          <div class="mb-2">
+            <select id="categoria" class="form-control">
+              <option value="">-- Selecciona categoría --</option>
+              <option value="Asistente Virtual">Asistente Virtual</option>
+              <option value="Investigación">Investigación</option>
+              <option value="Productividad">Productividad</option>
+              <option value="Diseño">Diseño</option>
+              <option value="Educación">Educación</option>
+            </select>
+            <div id="errorCategoria" class="text-danger small"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
         <div id="listaRegistros" class="mt-3"></div>
       </section>
 
     </main>
 
-    <!-- BLOQUE BASE: footer — en Flask sería parte de base.html -->
     <footer>
       <p>Desarrollado por Lady Melida Guerrero Quiñonez</p>
       <p>Asignatura: Desarrollo de Aplicaciones Web</p>
       <p>Universidad Estatal Amazónica - 2026</p>
     </footer>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script src="static/js/script.js"></script>
   </body>
 </html>
