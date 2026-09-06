@@ -6,7 +6,7 @@
     <title>IA en la Universidad</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   </head>
   <body>
 
@@ -22,11 +22,11 @@
         </button>
         <div class="collapse navbar-collapse" id="menuNav">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="#mision">Nuestra Misión</a></li>
-            <li class="nav-item"><a class="nav-link" href="#aula">La IA en el Aula</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-            <li class="nav-item"><a class="nav-link" href="#registro">Registros</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('herramientas') }}">Herramientas</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('impacto') }}">Impacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('recursos') }}">Recursos</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
           </ul>
         </div>
       </div>
@@ -37,7 +37,7 @@
       <section id="inicio" class="p-3 mb-4 bg-white rounded">
         <h2>Inicio</h2>
         <p>Bienvenido a este espacio dedicado a explorar cómo la Inteligencia Artificial está transformando la educación universitaria.</p>
-        <a href="#mision" class="btn btn-primary">Conoce nuestra misión</a>
+        <a href="{{ url_for('herramientas') }}" class="btn btn-primary">Conoce nuestra misión</a>
         <button type="button" class="btn btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#modalInfo">Más información</button>
       </section>
 
@@ -63,10 +63,10 @@
         <p>Nuestra misión es informar, concientizar y orientar a estudiantes universitarios sobre el papel que desempeña la Inteligencia Artificial en el ámbito académico. Vivimos en una era donde la tecnología avanza a pasos agigantados, y la IA se ha convertido en una herramienta fundamental para el aprendizaje personalizado, la investigación científica y el desarrollo de habilidades digitales. Creemos que cada estudiante merece acceder a recursos que le permitan comprender esta tecnología, utilizarla de manera ética y responsable, y aprovechar su potencial para mejorar su rendimiento académico.</p>
         <div class="row text-center mt-3">
           <div class="col-md-6">
-            <img src="static/img/ImagenIA1.png" alt="IA en educación" class="img-fluid rounded">
+            <img src="{{ url_for('static', filename='img/ImagenIA1.png') }}" alt="IA en educación" class="img-fluid rounded">
           </div>
           <div class="col-md-6">
-            <img src="static/img/ImagenIA2.jpg" alt="Estudiantes con IA" class="img-fluid rounded">
+            <img src="{{ url_for('static', filename='img/ImagenIA2.jpg') }}" alt="Estudiantes con IA" class="img-fluid rounded">
           </div>
         </div>
       </section>
@@ -175,6 +175,6 @@
       <p>Universidad Estatal Amazónica - 2026</p>
     </footer>
 
-    <script src="static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
