@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="p-3 mb-4 bg-white rounded">
+  <h2>Bienvenido, {{ current_user.usuario }} 👋</h2>
+  <p>Has iniciado sesión correctamente.</p>
+  <div class="row mt-3">
+    <div class="col-md-3 mb-3">
+      <div class="card text-center p-3">
+        <h5>🤖 Herramientas</h5>
+        <a href="{{ url_for('herramientas_lista') }}" class="btn btn-primary btn-sm mt-2">Ver</a>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card text-center p-3">
+        <h5>📊 Impacto</h5>
+        <a href="{{ url_for('impacto') }}" class="btn btn-primary btn-sm mt-2">Ver</a>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card text-center p-3">
+        <h5>📚 Recursos</h5>
+        <a href="{{ url_for('recursos') }}" class="btn btn-primary btn-sm mt-2">Ver</a>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card text-center p-3">
+        <h5>📧 Contacto</h5>
+        <a href="{{ url_for('contacto') }}" class="btn btn-primary btn-sm mt-2">Ver</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
