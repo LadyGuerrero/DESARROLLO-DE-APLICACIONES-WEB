@@ -1,26 +1,38 @@
 {% extends "base.html" %}
-
 {% block title %}Recursos{% endblock %}
-
 {% block content %}
 <section class="p-3 mb-4 bg-white rounded">
-  <h2>Recursos para Estudiantes</h2>
-  <div class="row">
-    {% for r in recursos %}
-    <div class="col-md-6 mb-3">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">{{ r.nombre }}</h5>
-          <p class="card-text">{{ r.tipo }}</p>
-          {% if r.gratuito %}
-            <span class="badge bg-success">Gratuito</span>
-          {% else %}
-            <span class="badge bg-warning text-dark">De pago</span>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+  <h2>Recursos de IA</h2>
+  <a href="{{ url_for('nuevo_recurso') }}" class="btn btn-success mb-3">+ Nuevo Recurso</a>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
     {% endfor %}
-  </div>
+  {% endwith %}
+  {% if recursos %}
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr><th>#</th><th>Nombre</th><th>Tipo</th><th>URL</th><th>Categoría</th><th>Gratuito</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      {% for r in recursos %}
+      <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+        <td>{{ r[2] }}</td>
+        <td>{{ r[3] }}</td>
+        <td><span class="badge bg-secondary">{{ r[4] }}</span></td>
+        <td>{% if r[5] == 1 %}<span class="badge bg-success">Sí</span>{% else %}<span class="badge bg-danger">No</span>{% endif %}</td>
+        <td>
+          <a href="{{ url_for('editar_recurso', id=r[0]) }}" class="btn btn-warning btn-sm">Editar</a>
+          <a href="{{ url_for('eliminar_recurso', id=r[0]) }}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="alert alert-warning">No hay recursos registrados.</div>
+  {% endif %}
 </section>
 {% endblock %}

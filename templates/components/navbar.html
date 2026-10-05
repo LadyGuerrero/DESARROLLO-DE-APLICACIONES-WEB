@@ -10,7 +10,7 @@
         {% if current_user.is_authenticated %}
         <li class="nav-item"><a class="nav-link" href="{{ url_for('herramientas_lista') }}">Herramientas</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('impacto') }}">Impacto</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('recursos') }}">Recursos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('recursos_lista') }}">Recursos</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
         {% endif %}

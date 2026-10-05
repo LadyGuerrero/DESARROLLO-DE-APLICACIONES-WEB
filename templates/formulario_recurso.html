@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Recurso{% endblock %}
+{% block content %}
+<section class="p-3 mb-4 bg-white rounded">
+  <h2>Recurso</h2>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.nombre.label(class="form-label") }}
+      {{ form.nombre(class="form-control") }}
+      {% for e in form.nombre.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+    </div>
+    <div class="mb-3">
+      {{ form.tipo.label(class="form-label") }}
+      {{ form.tipo(class="form-control") }}
+    </div>
+    <div class="mb-3">
+      {{ form.url.label(class="form-label") }}
+      {{ form.url(class="form-control") }}
+    </div>
+    <div class="mb-3">
+      {{ form.gratuito.label(class="form-label") }}
+      {{ form.gratuito(class="form-select") }}
+    </div>
+    <div class="mb-3">
+      {{ form.categoria.label(class="form-label") }}
+      {{ form.categoria(class="form-select") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+    <a href="{{ url_for('recursos_lista') }}" class="btn btn-secondary ms-2">Cancelar</a>
+  </form>
+</section>
+{% endblock %}

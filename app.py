@@ -5,6 +5,7 @@ from forms.herramienta_form import HerramientaForm
 from forms.contacto_form import ContactoForm
 from forms.login_form import LoginForm
 from forms.usuario_form import UsuarioForm
+from forms.recurso_form import RecursoForm
 from conexion.conexion import get_connection
 from models import Usuario
 
@@ -151,6 +152,79 @@ def eliminar_herramienta(id):
     flash('Herramienta eliminada.', 'warning')
     return redirect(url_for('herramientas_lista'))
 
+@app.route('/recursos')
+@login_required
+def recursos_lista():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT r.id_recurso, r.nombre, r.tipo, r.url, c.nombre, r.gratuito
+        FROM recursos r
+        JOIN categorias c ON r.id_categoria = c.id_categoria
+    ''')
+    recursos = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('recursos.html', recursos=recursos)
+
+@app.route('/recursos/nuevo', methods=['GET', 'POST'])
+@login_required
+def nuevo_recurso():
+    form = RecursoForm()
+    if form.validate_on_submit():
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            'INSERT INTO recursos (nombre, tipo, url, gratuito, id_categoria) VALUES (%s, %s, %s, %s, %s)',
+            (form.nombre.data, form.tipo.data, form.url.data, int(form.gratuito.data), int(form.categoria.data))
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash('Recurso registrado.', 'success')
+        return redirect(url_for('recursos_lista'))
+    return render_template('formulario_recurso.html', form=form)
+
+@app.route('/recursos/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar_recurso(id):
+    form = RecursoForm()
+    conn = get_connection()
+    cursor = conn.cursor()
+    if form.validate_on_submit():
+        cursor.execute(
+            'UPDATE recursos SET nombre=%s, tipo=%s, url=%s, gratuito=%s, id_categoria=%s WHERE id_recurso=%s',
+            (form.nombre.data, form.tipo.data, form.url.data, int(form.gratuito.data), int(form.categoria.data), id)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash('Recurso actualizado.', 'success')
+        return redirect(url_for('recursos_lista'))
+    cursor.execute('SELECT nombre, tipo, url, gratuito, id_categoria FROM recursos WHERE id_recurso = %s', (id,))
+    r = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if r:
+        form.nombre.data = r[0]
+        form.tipo.data = r[1]
+        form.url.data = r[2]
+        form.gratuito.data = str(r[3])
+        form.categoria.data = str(r[4])
+    return render_template('formulario_recurso.html', form=form)
+
+@app.route('/recursos/eliminar/<int:id>')
+@login_required
+def eliminar_recurso(id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM recursos WHERE id_recurso = %s', (id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    flash('Recurso eliminado.', 'warning')
+    return redirect(url_for('recursos_lista'))
+
 @app.route('/impacto')
 @login_required
 def impacto():
@@ -162,17 +236,6 @@ def impacto():
         {"area": "Ética", "descripcion": "Desafíos en integridad académica"}
     ]
     return render_template('impacto.html', titulo=titulo, impactos=impactos)
-
-@app.route('/recursos')
-@login_required
-def recursos():
-    recursos = [
-        {"nombre": "Coursera", "tipo": "Curso online", "gratuito": True},
-        {"nombre": "edX", "tipo": "Curso online", "gratuito": True},
-        {"nombre": "Google Scholar", "tipo": "Buscador académico", "gratuito": True},
-        {"nombre": "Udemy", "tipo": "Curso online", "gratuito": False}
-    ]
-    return render_template('recursos.html', recursos=recursos)
 
 @app.route('/contacto', methods=['GET', 'POST'])
 @login_required
