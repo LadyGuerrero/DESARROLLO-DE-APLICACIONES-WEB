@@ -1,28 +1,10 @@
-import sqlite3
-import os
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from forms.herramienta_form import HerramientaForm
 from forms.contacto_form import ContactoForm
+from conexion.conexion import get_connection
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uea2026secretkey'
-
-DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'ferreteria.db')
-
-def init_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS herramientas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT NOT NULL,
-            descripcion TEXT NOT NULL,
-            categoria TEXT NOT NULL,
-            disponible INTEGER DEFAULT 1
-        )
-    ''')
-    conn.commit()
-    conn.close()
 
 @app.route('/')
 def index():
@@ -30,10 +12,15 @@ def index():
 
 @app.route('/herramientas')
 def herramientas_lista():
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM herramientas')
+    cursor.execute('''
+        SELECT h.id_herramienta, h.nombre, h.descripcion, c.nombre, h.disponible
+        FROM herramientas h
+        JOIN categorias c ON h.id_categoria = c.id_categoria
+    ''')
     herramientas = cursor.fetchall()
+    cursor.close()
     conn.close()
     return render_template('herramientas.html', herramientas=herramientas)
 
@@ -41,17 +28,66 @@ def herramientas_lista():
 def nueva_herramienta():
     form = HerramientaForm()
     if form.validate_on_submit():
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_connection()
         cursor = conn.cursor()
         cursor.execute(
-            'INSERT INTO herramientas (nombre, descripcion, categoria, disponible) VALUES (?, ?, ?, ?)',
-            (form.nombre.data, form.descripcion.data, form.categoria.data, 1)
+            'SELECT id_categoria FROM categorias WHERE nombre = %s',
+            (form.categoria.data,)
         )
-        conn.commit()
+        categoria = cursor.fetchone()
+        if categoria:
+            cursor.execute(
+                'INSERT INTO herramientas (nombre, descripcion, disponible, id_categoria) VALUES (%s, %s, %s, %s)',
+                (form.nombre.data, form.descripcion.data, 1, categoria[0])
+            )
+            conn.commit()
+        cursor.close()
         conn.close()
         flash('Herramienta registrada correctamente.', 'success')
         return redirect(url_for('herramientas_lista'))
     return render_template('formulario_herramienta.html', form=form)
+
+@app.route('/herramientas/editar/<int:id>', methods=['GET', 'POST'])
+def editar_herramienta(id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    form = HerramientaForm()
+    if form.validate_on_submit():
+        cursor.execute(
+            'SELECT id_categoria FROM categorias WHERE nombre = %s',
+            (form.categoria.data,)
+        )
+        categoria = cursor.fetchone()
+        if categoria:
+            cursor.execute(
+                'UPDATE herramientas SET nombre=%s, descripcion=%s, id_categoria=%s WHERE id_herramienta=%s',
+                (form.nombre.data, form.descripcion.data, categoria[0], id)
+            )
+            conn.commit()
+        cursor.close()
+        conn.close()
+        flash('Herramienta actualizada correctamente.', 'success')
+        return redirect(url_for('herramientas_lista'))
+    cursor.execute('SELECT h.nombre, h.descripcion, c.nombre FROM herramientas h JOIN categorias c ON h.id_categoria = c.id_categoria WHERE h.id_herramienta = %s', (id,))
+    h = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if h:
+        form.nombre.data = h[0]
+        form.descripcion.data = h[1]
+        form.categoria.data = h[2]
+    return render_template('formulario_herramienta.html', form=form)
+
+@app.route('/herramientas/eliminar/<int:id>')
+def eliminar_herramienta(id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM herramientas WHERE id_herramienta = %s', (id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    flash('Herramienta eliminada.', 'warning')
+    return redirect(url_for('herramientas_lista'))
 
 @app.route('/impacto')
 def impacto():
@@ -83,5 +119,4 @@ def contacto():
     return render_template('contacto.html', form=form)
 
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
