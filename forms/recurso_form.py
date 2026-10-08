@@ -14,4 +14,4 @@ class RecursoForm(FlaskForm):
         ('4', 'Diseño'),
         ('5', 'Educación')
     ], validators=[DataRequired()])
-    submit = SubmitField('Guardar')s
+    submit = SubmitField('Guardar')
